@@ -12,14 +12,16 @@ class PokemonController < ApplicationController
       pokemon_types << type["type"]["name"]
     end
 
-    res = HTTParty.get("https://api.giphy.com/v1/gifs/search?api_key=R94laQQCkFjOS7Z5jcVdQ4MkNIx4bNK4&q=pikachu&rating=g")
+    res = HTTParty.get("https://api.giphy.com/v1/gifs/search?api_key=#{ENV["GIPHY_KEY"]}&q=#{pokemon_name}&rating=g")
     body = JSON.parse(res.body)
-    binding.pry
+
+    gif_url = body["data"].sample["url"]
 
 
     render json: { "id": pokemon_id,
                    "name": pokemon_name,
-                   "types": pokemon_types}
+                   "types": pokemon_types,
+                   "gif": gif_url}
 
   end
 end
