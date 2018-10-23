@@ -6,8 +6,6 @@ class PokemonController < ApplicationController
     body = JSON.parse(res.body)
     puts body["name"] # should be "pikachu"
 
-
-
     render json: { "message": "ok" }
 
 
